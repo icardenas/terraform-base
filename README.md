@@ -1,4 +1,4 @@
-# Terraform Dev Environment (Docker + Alpine)
+# Terraform Dev Environment (Docker + Debian)
 
 Este proyecto proporciona un entorno aislado y ligero para trabajar con Terraform, AWS CLI y Azure CLI sin instalar nada localmente.
 
@@ -15,12 +15,27 @@ Este proyecto proporciona un entorno aislado y ligero para trabajar con Terrafor
    make build
    ```
 
-2. **Entrar al entorno (Shell):**
+2. **Iniciar el contenedor en segundo plano (opcional):**
    ```bash
-   make shell
+   make up
    ```
 
-3. **Dentro del contenedor, puedes usar:**
+3. **Entrar al entorno:**
+   - Para una nueva sesión desechable (útil para comandos rápidos):
+     ```bash
+     make shell
+     ```
+   - Para conectarse al contenedor en ejecución (si usaste `make up`):
+     ```bash
+     make login
+     ```
+
+4. **Detener el contenedor:**
+   ```bash
+   make down
+   ```
+
+5. **Dentro del contenedor, puedes usar:**
    - `terraform --version`
    - `aws --version`
    - `az --version`

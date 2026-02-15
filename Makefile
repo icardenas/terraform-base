@@ -16,7 +16,7 @@ down:
 
 shell:
 
-	docker-compose run --rm terraform
+	docker-compose run --rm --name tf-dev-shell terraform
 
 
 
