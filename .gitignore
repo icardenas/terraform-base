@@ -1,0 +1,13 @@
+# Terraform files
+.terraform/
+*.tfstate
+*.tfstate.backup
+.terraform.lock.hcl
+
+# Credentials (if you ever copy them here)
+.aws/
+.azure/
+
+# OS files
+.DS_Store
+Thumbs.db

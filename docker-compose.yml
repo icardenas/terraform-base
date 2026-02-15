@@ -1,0 +1,23 @@
+services:
+  terraform:
+    build: .
+    container_name: tf-dev-env
+    tty: true
+    stdin_open: true
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+    volumes:
+      - .:/workspace
+      # Persist credentials and terraform state/plugins
+      - tf_data:/root/.terraform.d
+      - aws_config:/root/.aws
+      - azure_config:/root/.azure
+    environment:
+      - AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION:-us-east-1}
+    network_mode: bridge # Isolated but with outbound internet access
+
+volumes:
+  tf_data:
+  aws_config:
+  azure_config:
