@@ -26,6 +26,8 @@ login:
 
 	docker exec -it tf-dev-env bash
 
+plan:
+	terraform plan -var-file=terraform.tfvars
 
 
 # Clean up docker volumes
