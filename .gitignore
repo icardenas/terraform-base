@@ -1,12 +1,14 @@
 # Terraform files
 .terraform/
 *.tfstate
+*.tfstate.lock.info
 *.tfstate.backup
 .terraform.lock.hcl
-config/terraform.tfvars
+*.tfvars
 # Credentials (if you ever copy them here)
 .aws/
 .azure/
+*.out
 
 # OS files
 .DS_Store
