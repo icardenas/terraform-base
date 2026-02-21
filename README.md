@@ -1,57 +1,35 @@
 # Terraform Dev Environment (Docker + Debian)
 
-Este proyecto proporciona un entorno aislado y ligero para trabajar con Terraform, AWS CLI y Azure CLI sin instalar nada localmente.
+Este proyecto proporciona un entorno aislado y profesional para trabajar con Terraform, AWS CLI y Azure CLI, incluyendo automatización de calidad de código.
 
 ## Requisitos
-
-- Docker
-- Docker Compose
+- Docker y Docker Compose
 - Make
 
 ## Uso Rápido
-
-1. **Construir la imagen:**
+1. **Construir y entrar al entorno:**
    ```bash
-   make build
+   make shell
+   ```
+2. **Configurar Git y Calidad (Solo la primera vez dentro del contenedor):**
+   ```bash
+   git config --global user.name "Tu Nombre"
+   git config --global user.email "tu@email.com"
+   pre-commit install
    ```
 
-2. **Iniciar el contenedor en segundo plano (opcional):**
-   ```bash
-   make up
-   ```
+## Estructura del Proyecto
+- `base_config/modules/`: Lógica reutilizable de infraestructura (Network, Storage, Compute).
+- `base_config/environments/`: Configuraciones específicas por entorno (`dev`, `staging`, `prod`).
+- `.pre-commit-config.yaml`: Automatización de `terraform fmt` y validación en cada commit.
 
-3. **Entrar al entorno:**
-   - Para una nueva sesión desechable (útil para comandos rápidos):
-     ```bash
-     make shell
-     ```
-   - Para conectarse al contenedor en ejecución (si usaste `make up`):
-     ```bash
-     make login
-     ```
-
-4. **Detener el contenedor:**
-   ```bash
-   make down
-   ```
-
-5. **Dentro del contenedor, puedes usar:**
-   - `terraform --version`
-   - `aws --version`
-   - `az --version`
+## Comandos del Makefile
+- `make shell`: Construye y entra al contenedor (limpia al salir).
+- `make rebuild`: Reconstruye la imagen sin usar caché.
+- `make clean`: Elimina contenedores y volúmenes (borra credenciales y estado local).
 
 ## Persistencia
-
-Los siguientes datos se mantienen entre sesiones:
-- Directorio de trabajo: `./workspace` (mapeado al root del proyecto)
-- Credenciales de AWS: `~/.aws`
-- Credenciales de Azure: `~/.azure`
-- Plugins de Terraform: `~/.terraform.d`
-
-Para limpiar todo (incluyendo credenciales guardadas):
-```bash
-make clean
-```
-
-## Notas sobre Aislamiento
-El contenedor usa `network_mode: bridge`, lo que permite acceso a internet para hablar con las APIs de AWS/Azure, pero mantiene el entorno de ejecución separado de tu sistema operativo host.
+Se mantienen entre sesiones:
+- `~/.azure`: Credenciales de Azure.
+- `~/.aws`: Credenciales de AWS.
+- `~/.terraform.d`: Plugins de Terraform.
