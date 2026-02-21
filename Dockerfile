@@ -8,7 +8,7 @@ FROM debian:bookworm-slim
 # Install base dependencies for Azure CLI and networking
 RUN apt-get update && apt-get install -y --no-install-recommends \
     curl ca-certificates python3 python3-pip python3-venv \
-    iputils-ping traceroute \
+    iputils-ping traceroute git \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Copy Terraform from Stage 1
@@ -18,10 +18,10 @@ COPY --from=terraform_source /bin/terraform /usr/local/bin/terraform
 COPY --from=aws_source /usr/local/aws-cli /usr/local/aws-cli
 RUN ln -s /usr/local/aws-cli/v2/current/bin/aws /usr/local/bin/aws
 
-# Install Azure CLI (the only one we must install via pip)
+# Install Azure CLI and pre-commit
 RUN python3 -m venv /opt/venv
 ENV PATH="/opt/venv/bin:$PATH"
-RUN pip install --no-cache-dir azure-cli
+RUN pip install --no-cache-dir azure-cli pre-commit
 
 WORKDIR /workspace
 ENTRYPOINT ["/bin/bash"]
