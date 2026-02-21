@@ -18,10 +18,16 @@ COPY --from=terraform_source /bin/terraform /usr/local/bin/terraform
 COPY --from=aws_source /usr/local/aws-cli /usr/local/aws-cli
 RUN ln -s /usr/local/aws-cli/v2/current/bin/aws /usr/local/bin/aws
 
-# Install Azure CLI and pre-commit
+# Install Azure CLI, pre-commit, TFLint and TFSec
 RUN python3 -m venv /opt/venv
 ENV PATH="/opt/venv/bin:$PATH"
 RUN pip install --no-cache-dir azure-cli pre-commit
+
+# Install TFLint
+RUN curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
+
+# Install TFSec
+RUN curl -s https://raw.githubusercontent.com/aquasecurity/tfsec/master/scripts/install_linux.sh | bash
 
 WORKDIR /workspace
 ENTRYPOINT ["/bin/bash"]
