@@ -1,0 +1,4 @@
+subscription_id = "your-subscription-id-here"
+project_name    = "terraform-base"
+environment     = "dev"
+location        = "East US"
