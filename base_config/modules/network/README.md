@@ -1,4 +1,4 @@
-<!-- BEGIN_TF_DOCS -->
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
 No requirements.
@@ -39,4 +39,4 @@ No modules.
 | <a name="output_vnet_id"></a> [vnet\_id](#output\_vnet\_id) | n/a |
 | <a name="output_vnet_subnet_ids"></a> [vnet\_subnet\_ids](#output\_vnet\_subnet\_ids) | Devuelve solo la lista de IDs para mantener retrocompatibilidad (si fuera necesario) |
 | <a name="output_vnet_subnets"></a> [vnet\_subnets](#output\_vnet\_subnets) | Devuelve un mapa { "subnet-name" = "id" } |
-<!-- END_TF_DOCS -->
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
