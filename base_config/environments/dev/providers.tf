@@ -14,7 +14,7 @@ terraform {
     path = "terraform.tfstate"
   }
 
-  # 2. BACKEND REMOTO (Recomendado): El estado se guarda en Azure. 
+  # 2. BACKEND REMOTO (Recomendado): El estado se guarda en Azure.
   # Permite: Trabajo en equipo, bloqueo de estado (State Locking) y mayor seguridad.
   # Para usarlo: Comenta el bloque "local", descomenta este y ejecuta 'terraform init'.
   /*

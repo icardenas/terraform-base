@@ -48,12 +48,18 @@ apply: ## Apply for the selected environment (e.g., make apply ENV=dev)
 destroy: ## Destroy for the selected environment (e.g., make destroy ENV=dev)
 	$(DOCKER_RUN) "cd $(TF_DIR) && terraform destroy -auto-approve"
 
-## Quality and Linting
+## Quality, Security and Documentation
 fmt: ## Run terraform fmt recursively on all files
 	$(DOCKER_RUN) "terraform fmt -recursive"
 
 validate: ## Run terraform validate for the selected environment
 	$(DOCKER_RUN) "cd $(TF_DIR) && terraform validate"
 
-lint: ## Run all pre-commit hooks (tflint, validate, fmt, etc)
+lint: ## Run all pre-commit hooks (TFLint, Checkov, Docs, fmt, etc)
 	$(DOCKER_RUN) "pre-commit run --all-files"
+
+checkov: ## Run Checkov security scan on all terraform files
+	$(DOCKER_RUN) "checkov -d . --quiet --compact"
+
+docs: ## Generate/Update README.md for all modules using terraform-docs
+	$(DOCKER_RUN) "find base_config/modules -maxdepth 1 -mindepth 1 -type d -exec terraform-docs markdown table --output-file README.md {} \;"
