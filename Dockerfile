@@ -8,7 +8,7 @@ FROM debian:bookworm-slim
 # Install base dependencies for Azure CLI and networking
 RUN apt-get update && apt-get install -y --no-install-recommends \
     curl ca-certificates python3 python3-pip python3-venv \
-    iputils-ping traceroute git \
+    iputils-ping traceroute git unzip \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Copy Terraform from Stage 1
